@@ -1,0 +1,164 @@
+{% extends 'base.html' %} 
+{% load static %} {% block basetitle %} Sign Up 
+{% endblock %} {% block content %}
+
+{% if user.is_authenticated %}
+
+<section class="h-100 h-custom" style="background-color: #fff; padding-bottom: 0px;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          {% comment %} <img src="{% static '/img/food2.jpg' %}"
+            class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+            alt="picture of food" height="250"> {% endcomment %}
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Edit Your Account</h3>
+
+            <form class="px-md-2" name="newProfile" method="POST" action="{% url 'editprofile' %}">
+            {% csrf_token %}
+              <div class="row">
+                  <!-- First Name Input -->
+                  <div class="form-outline col-md-6 mb-4">
+                    <input type="text" name="fName" id="fName" class="form-control" autofocus value={{ profile.fname }}>
+                    <label for="fName" class="form-label">First Name</label>
+                  </div>
+                  <!-- Last Name Input -->
+                  <div class="form-outline col-md-6 mb-4">
+                    <input type="text" name="lName" id="lName" class="form-control" value={{ profile.lname }}>
+                    <label for="lName" class="form-label">Last Name</label>
+                  </div>
+              </div>
+              <!-- Phone Number Input -->
+              <div class="form-outline mb-4">
+                <input type="text" name="phone" id="phone" class="form-control"  value={{ profile.phone }}>
+                <label for="phone" class="form-label">Phone Number</label>
+              </div>
+              <!-- Email Input -->
+              <div class="form-outline mb-4">
+                <input type="email" name="email" id="email" class="form-control" value={{ profile.email }}>
+                <label for="email" class="form-label">Email</label>
+              </div>
+              <div class="row">
+                <div class="form-outline col-md-6 mb-4">
+                  <img src="{{ other.profile_photo.url }}"
+                          alt="Generic placeholder image" class="img-fluid"
+                          style="width: 180px; border-radius: 10px;">
+                </div>
+                <div class="form-outline col-md-6 mb-4">
+                  <input type="file" name="photo" id="photo" class="form-control" value={{ other.profile_photo.url }}>
+                  <label for="photo" class="form-label">Choose a profile picture:</label>
+                </div> 
+              </div>
+
+              <button type="submit" class="btn btn-lg mb-1" style="background: #67b0d1; color:white;">Submit Changes</button>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- Display the Skills of the Current User with the Option to Delete or Add New Skills -->
+<section class="h-100 h-custom" style="background-color: #fff; padding-top: 0px;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Current Skills</h3>
+            {% for skill in other.skills.all %}
+              <div class="form-outline mb-4">
+                <p class="form-control">
+                  {{ skill.title }}: {{ skill.description }}
+                  <form action="{% url 'deleteskill' %}" name="form" method="get">
+                    <input type="text" name='title' id='title' value={{skill.title}} hidden>
+                  <button type="submit" class="btn btn-lg mb-1" style="background: #67b0d1; color:white;">Delete</button>
+                  </form>
+                </p>  
+              </div>     
+            {% endfor %}
+            <a class="btn btn-lg mb-1" style="background: #67b0d1; color:white; text-align: center;" href="{% url 'addskill' %}">Add Skills</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{% else %}
+
+<section class="h-100 h-custom" style="background-color: #fff; padding-bottom: 0px;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <!--<img src="{% static '/img/food2.jpg' %}"
+            class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+            alt="Diet Photo" height="250">-->
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Create Account</h3>
+
+            <form class="px-md-2" name="newProfile" method="POST" action="{% url 'storeprofile' %}">
+            {% csrf_token %}
+              <div class="row">
+                  <!-- First Name Input -->
+                  <div class="form-outline col-md-6 mb-4">
+                    <input type="text" name="fName" id="fName" class="form-control" autofocus>
+                    <label for="fName" class="form-label">First Name</label>
+                  </div>
+                  <!-- Last Name Input -->
+                  <div class="form-outline col-md-6 mb-4">
+                    <input type="text" name="lName" id="lName" class="form-control">
+                    <label for="lName" class="form-label">Last Name</label>
+                  </div>
+              </div>
+              <!-- Phone Number Input -->
+              <div class="form-outline mb-4">
+                <input type="text" name="phone" id="phone" class="form-control">
+                <label for="phone" class="form-label">Phone Number</label>
+              </div>
+              <!-- Email Input -->
+              <div class="form-outline mb-4">
+                <input type="email" name="email" id="email" class="form-control">
+                <label for="email" class="form-label">Email</label>
+              </div>
+              
+              <!-- Username Input -->
+              <div class="form-outline mb-4">
+                <input type="text" name="username" id="username" class="form-control">
+                <label for="username" class="form-label">Username</label>
+              </div>
+              <div class="row">
+                  <!-- Password Input -->
+                  <div class="form-outline col-md-6 mb-4">
+                    <input type="password" name="pass1" id="pass1" class="form-control">
+                    <label for="pass1" class="form-label">Password</label>
+                  </div>
+                  <!-- Confirm Password Input -->
+                  <div class="form-outline col-md-6 mb-4">
+                    <input type="password" name="pass2" id="pass2" class="form-control">
+                    <label for="pass2" class="form-label">Confirm Password</label>
+                  </div>
+                </div>   
+              <div class="form-outline mb-4">
+                <label for="photo" class="form-label">Choose a profile picture:</label>
+                <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-lg mb-1" style="background: #67b0d1; color:white;">Create Profile</button>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

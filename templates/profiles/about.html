@@ -1,0 +1,94 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block basetitle %} About 
+{% endblock %} {% block content %}
+
+  <!-- ======= Hero Section ======= -->
+
+  <section id="hero">
+
+    
+    <div class="hero-container" data-aos="fade-up">
+      <h1>About Us</h1>
+      <h2>We want students to succeed!</h2>
+      <a href="#about" class="btn-get-started scrollto"><i class="bx bx-chevrons-down"></i></a>
+    </div>
+    
+
+  </section><!-- End Hero -->
+
+ <main id="main"> 
+  
+
+
+ 
+    <section id="counts" class="counts  section-bg">
+
+
+
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-in" data-aos-delay="100" id='about'>
+          <h2>Our Mission</h2>
+          <p>Here at Student Tutor, we understand how hard it can be for students to receive help outside of the classroom. Most of the 
+            time, if one person has a question, another person is asking the same question but are too afraid to ask. We strive to create
+            an environment where students can receive help 24/7. The best part is, students will be the ones answering your questions! 
+            We believe that this will create an environment of learning and collaboration rather than a website that simply has test answers
+            on it.
+          </p>
+        </div>
+
+        <div class="row no-gutters">
+
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="bi bi-people"></i>
+              <span data-purecounter-start="0" data-purecounter-end="62" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>62% of students</strong> are too afraid to ask questions in class based on the fear of being judged.</p>
+            </div>
+
+          <!--<img href="{% static 'assets/img/1in7.jpg' %}" alt="1in7">-->
+          </div>
+
+        
+
+
+          <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+            <h2>Our Story</h2>
+            <p>All of us at Student Tutor are currently enrolled at Brigham Young University. We personally understand how hard it is 
+                for students to 1. Get all of their questions answered in the classroom, and 2. Find answers when you aren't in the 
+                classroom. We want to be able to help students that struggle with the same problems we have. We want to make it easier
+                for us to make study groups, connect with students in our classes, and make learning a collaborative experience.
+            </p>
+          
+          </div>
+
+          
+
+    
+
+          
+
+        </div>
+
+      </div>
+    </section><!-- End Counts Section -->
+
+      {% if user.is_authenticated %}
+
+      {% else %}
+          <!-- ======= Cta Section ======= -->
+          <section id="cta" class="cta">
+            <div class="container" data-aos="zoom-in">
+
+              <div class="text-center">
+                <h3>Get the help you need!</h3>
+                <p>Now that you've read about us, sign up and find out for yourself how much help you can give, and receive.<p>
+                <a class="cta-btn" href="{% url 'login' %}">Sign Up!</a>
+              </div>
+
+            </div>
+          </section><!-- End Cta Section -->
+        {% endif %}
+
+{% endblock %}
